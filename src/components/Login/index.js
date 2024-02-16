@@ -60,7 +60,7 @@ class Login extends Component {
           src="https://assets.ccbp.in/frontend/react-js/logo-img.png"
           alt="website logo"
         />
-        <form>
+        <form onSubmit={this.onSubmitForm}>
           <label htmlFor="username">USERNAME</label>
           <input
             type="text"
@@ -71,7 +71,7 @@ class Login extends Component {
           />
           <label htmlFor="password">PASSWORD</label>
           <input
-            type="text"
+            type="password"
             placeholder="Password"
             id="password"
             value={password}

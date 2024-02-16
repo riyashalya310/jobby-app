@@ -1,4 +1,5 @@
-import {Component} from 'react'
+import {Component, Redirect} from 'react'
+import Cookies from 'js-cookie'
 import {Link} from 'react-router-dom'
 import './index.css'
 import {BsSearch} from 'react-icons/bs'
@@ -197,6 +198,10 @@ class Jobs extends Component {
 
   render() {
     const {employmentTypesList, salaryRangesList, search} = this.props
+    const jwtToken = Cookies.get('jwt_token')
+    if (jwtToken === undefined) {
+      return <Redirect to="/login" />
+    }
     return (
       <>
         <Header />

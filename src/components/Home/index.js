@@ -1,8 +1,13 @@
-import {Link} from 'react-router-dom'
+import {Link, Redirect} from 'react-router-dom'
+import Cookies from 'js-cookie'
 import './index.css'
 import Header from '../Header'
 
 const Home = () => {
+  const jwtToken = Cookies.get('jwt_token')
+  if (jwtToken === undefined) {
+    return <Redirect to="login" />
+  }
   const findJobsBtn = props => {
     const {history} = props
     history.replace('/jobs')
@@ -21,9 +26,11 @@ const Home = () => {
           alt=""
         />
 
-        <button type="button" onClick={findJobsBtn}>
-          <Link to="/jobs">Find Jobs</Link>
-        </button>
+        <Link to="/jobs">
+          <button type="button" onClick={findJobsBtn}>
+            Find Jobs
+          </button>
+        </Link>
       </div>
     </>
   )

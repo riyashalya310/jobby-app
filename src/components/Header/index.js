@@ -19,10 +19,14 @@ const Header = props => {
         </li>
       </Link>
       <li>
-        <Link to="/">Home</Link>
+        <Link to="/">
+          <button type="button">Home</button>
+        </Link>
       </li>
       <li>
-        <Link to="/jobs">Jobs</Link>
+        <Link to="/jobs">
+          <button type="button">Jobs</button>
+        </Link>
       </li>
       <button type="button" onClick={onClickLogout}>
         Logout
