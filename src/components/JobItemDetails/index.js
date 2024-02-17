@@ -1,5 +1,7 @@
 import {Component} from 'react'
+import {Redirect} from 'react-router-dom'
 import Loader from 'react-loader-spinner'
+import Cookies from 'js-cookie'
 import './index.css'
 
 const jobApiStatusConstants = {
@@ -179,6 +181,10 @@ class JobItemDetails extends Component {
   )
 
   renderJob = () => {
+    const jwtToken = Cookies.get('jwt_token')
+    if (jwtToken === undefined) {
+      return <Redirect to="/login" />
+    }
     const {jobAPIStatus} = this.state
     switch (jobAPIStatus) {
       case jobApiStatusConstants.success:

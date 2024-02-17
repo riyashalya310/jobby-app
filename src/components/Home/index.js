@@ -3,12 +3,12 @@ import Cookies from 'js-cookie'
 import './index.css'
 import Header from '../Header'
 
-const Home = () => {
+const Home = props => {
   const jwtToken = Cookies.get('jwt_token')
   if (jwtToken === undefined) {
     return <Redirect to="login" />
   }
-  const findJobsBtn = props => {
+  const findJobsBtn = () => {
     const {history} = props
     history.replace('/jobs')
   }

@@ -38,10 +38,7 @@ class Jobs extends Component {
 
   getProfile = async () => {
     this.setState({profileApiStatus: profileApiStatusConstants.loading})
-    const options = {
-      method: 'GET',
-    }
-    const response = await fetch('https://apis.ccbp.in/profile', options)
+    const response = await fetch('https://apis.ccbp.in/profile')
     if (response.ok) {
       const data = await response.json()
       const filteredData = {
