@@ -96,7 +96,7 @@ class Jobs extends Component {
       options,
     )
     if (response.ok) {
-      const data = response.json()
+      const data = await response.json()
       const filteredData = data.jobs.map(job => ({
         companyLogoUrl: job.company_logo_url,
         employmentType: job.employment_type,
