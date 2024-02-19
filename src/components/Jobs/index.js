@@ -5,6 +5,8 @@ import './index.css'
 import {BsSearch} from 'react-icons/bs'
 import Loader from 'react-loader-spinner'
 import Header from '../Header'
+import EmploymentItem from '../EmploymentItem'
+import SalaryItem from '../SalaryItem'
 
 const profileApiStatusConstants = {
   initial: 'INITIAL',
@@ -26,7 +28,7 @@ class Jobs extends Component {
     profile: {},
     profileApiStatus: profileApiStatusConstants.initial,
     jobsApiStatus: jobsApiStatusConstants.initial,
-    employmentType: '',
+    employmentType: [],
     minimumPackage: '',
     search: '',
   }
@@ -34,6 +36,30 @@ class Jobs extends Component {
   componentDidMount() {
     this.getJobsList()
     this.getProfile()
+  }
+
+  onChangeEmploymentType = id => {
+    const {employmentType} = this.state
+    if (employmentType.includes(id)) {
+      this.setState(prevState => ({
+        employmentType: prevState.employmentType.filter(
+          employment => employment !== id,
+        ),
+      }))
+    } else {
+      this.setState(prevState => ({
+        employmentType: [...prevState.employmentType, id],
+      }))
+    }
+  }
+
+  onChangeMinimumPackage = id => {
+    const {minimumPackage} = this.state
+    if (minimumPackage !== id) {
+      this.setState({minimumPackage: id})
+    } else {
+      this.setState({minimumPackage: ''})
+    }
   }
 
   getProfile = async () => {
@@ -57,8 +83,12 @@ class Jobs extends Component {
 
   getJobsList = async () => {
     this.setState({jobsApiStatus: jobsApiStatusConstants.loading})
+    const jwtToken = Cookies.get('jwt_token')
     const options = {
       method: 'GET',
+      headers: {
+        Authorization: `Bearer ${jwtToken}`,
+      },
     }
     const {employmentType, search, minimumPackage} = this.state
     const response = await fetch(
@@ -209,28 +239,21 @@ class Jobs extends Component {
             <h1>Type of Employment</h1>
             <ul>
               {employmentTypesList.map(employment => (
-                <li key={employment.employmentTypeId}>
-                  <label htmlFor={employment.employmentTypeId}>
-                    <input type="checkbox" id={employment.employmentTypeId} />
-                    {employment.label}
-                  </label>
-                </li>
+                <EmploymentItem
+                  details={employment}
+                  key={employment.employmentTypeId}
+                  onChangeEmploymentType={this.onChangeEmploymentType}
+                />
               ))}
             </ul>
             <h1>Salary Range</h1>
             <ul>
               {salaryRangesList.map(salary => (
-                <li key={salary.salaryRangeId}>
-                  <label htmlFor={salary.salaryRangeId}>
-                    <input
-                      type="radio"
-                      name="salary"
-                      value={salary.salaryRangeId}
-                      id={salary.salaryRangeId}
-                    />
-                    {salary.label}
-                  </label>
-                </li>
+                <SalaryItem
+                  details={salary}
+                  key={salary.salaryRangeId}
+                  onChangeMinimumPackage={this.onChangeMinimumPackage}
+                />
               ))}
             </ul>
           </div>
