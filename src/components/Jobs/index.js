@@ -64,7 +64,14 @@ class Jobs extends Component {
 
   getProfile = async () => {
     this.setState({profileApiStatus: profileApiStatusConstants.loading})
-    const response = await fetch('https://apis.ccbp.in/profile')
+    const jwtToken = Cookies.get('jwt_token')
+    const options = {
+      method: 'GET',
+      headers: {
+        Authorization: `Bearer ${jwtToken}`,
+      },
+    }
+    const response = await fetch('https://apis.ccbp.in/profile', options)
     if (response.ok) {
       const data = await response.json()
       const filteredData = {
