@@ -58,10 +58,10 @@ class JobItemDetails extends Component {
         })),
       }
       const filteredLifeAtCompany = {
-        lifeAtCompany: data.job_details.life_at_company.map(jobD => ({
-          description: jobD.description,
-          imageUrl: jobD.image_url,
-        })),
+        lifeAtCompany: {
+          description: data.job_details.life_at_company.description,
+          imageUrl: data.job_details.life_at_company.image_url,
+        },
       }
       const filteredLocation = {
         location: data.job_details.location,
@@ -160,10 +160,6 @@ class JobItemDetails extends Component {
     )
   }
 
-  onClickJobsRetry = () => {
-    this.getJobDetails()
-  }
-
   renderJobFailure = () => (
     <div>
       <img
@@ -172,7 +168,12 @@ class JobItemDetails extends Component {
       />
       <h1>Oops! Something Went Wrong</h1>
       <p>We cannot seem to find the page you are looking for.</p>
-      <button type="button" onClick={this.onClickJobsRetry}>
+      <button
+        type="button"
+        onClick={() => {
+          this.getJobDetails()
+        }}
+      >
         Retry
       </button>
     </div>
