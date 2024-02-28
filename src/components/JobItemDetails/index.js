@@ -73,7 +73,7 @@ class JobItemDetails extends Component {
         rating: data.job_details.rating,
       }
       const filteredSimilarJobs = {
-        similarJobs: data.job_details.similar_jobs.map(similarJob => ({
+        similarJobs: data.similar_jobs.map(similarJob => ({
           companyLogoUrl: similarJob.company_logo_url,
           employmentType: similarJob.employment_type,
           id: similarJob.id,
