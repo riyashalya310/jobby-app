@@ -141,7 +141,7 @@ class JobItemDetails extends Component {
           ))}
         </ul>
         <h1>Life At Company</h1>
-        <p>{lifeAtCompany}</p>
+        <p>{lifeAtCompany.description}</p>
         <h1>Similar Jobs</h1>
         <ul>
           {similarJobs.map(job => (
